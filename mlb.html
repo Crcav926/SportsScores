@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +53,7 @@
 
     // Fetch MLB data and display scores using jQuery
     $.ajax({
-        url: 'http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard',
+        url: 'https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard',
         method: 'GET',
         dataType: 'json',
         success: displayScores,
