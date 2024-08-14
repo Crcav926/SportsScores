@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <title>NFL Scores</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>NFL Scores</h1>
+    <div id="NFL-scores">
+        <h2>NFL Scores</h2>
+        <div id="NFL-scores-section">
+            <div id="NFL-template" style="display: none;">
+                <h4 class="NFL-game-label"></h4>
+                <div class="indentIt">
+                    <div class="team">
+                        <label class="team-name"></label>
+                        <span class="team-score"></span>
+                    </div>
+                    <div class="team">
+                        <label class="team-name"></label>
+                        <span class="team-score"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Function to create a list of scores using jQuery
+    function displayScores(data) {
+        const $container = $('#NFL-scores-section');
+
+        data.events.forEach(event => {
+            const $eventItem = $('#NFL-template').clone().show().removeAttr('id');
+            const $gameLabel = $eventItem.find('.NFL-game-label');
+            $gameLabel.text(event.name);
+
+            const $teams = $eventItem.find('.team');
+            
+            event.competitions.forEach(competition => {
+                competition.competitors.forEach((competitor, index) => {
+                    const $scoreLabel = $teams.eq(index).find('.team-name');
+                    $scoreLabel.text(competitor.team.name + ':');
+                    const $score = $teams.eq(index).find('.team-score');
+                    $score.text(competitor.score);
+                });
+            });
+            $container.append($eventItem);
+        });
+    }
+
+    // Fetch NFL data and display scores using jQuery
+    $.ajax({
+        url: 'http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard',
+        method: 'GET',
+        dataType: 'json',
+        success: displayScores,
+        error: function (error) {
+            console.error('Error fetching NFL data:', error);
+        }
+    });
+    </script>
+</body>
+</html>
