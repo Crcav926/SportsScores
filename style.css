@@ -15,44 +15,6 @@ h1 {
     margin-left: 20px;
 }
 
-#nba-scores {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.table th, .table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.table th {
-    background-color: #f8f8f8;
-    font-weight: bold;
-}
-
-.table .team-name {
-    font-weight: bold;
-}
-
-.table .score {
-    text-align: right;
-}
-
-.table .event-name {
-    font-size: 1.2em;
-    font-weight: bold;
-}
 ul {
     list-style-type: none;
     margin: 0;
@@ -79,4 +41,14 @@ ul {
   }
   .active {
     background-color: #661313;
+  }
+  .grid {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #ffffff;
+  }
+  
+  div > div {
+    padding: 10px;
   }
