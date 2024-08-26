@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- Link to external CSS file -->
+    <title>CFB Scores</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>CFB Scores</h1>
+    <div class="container">
+        <ul>
+            <li><a href="index.html">Home Page</a></li>
+            <li><a href="mlb.html">MLB Scores</a></li>
+            <li><a class="active" href="cfb.html">CFB Scores</a></li>
+            <li><a href="nfl.html">NFL Scores</a></li>
+            <li><a href="nba.html">NBA Scores</a></li>
+        </ul>
+  </header>
+</div>
+    <div id="cfb-scores">
+        <div class="grid" id="cfb-scores-section">
+            <div id="cfb-template" style="display: none;">
+                <h4 class="cfb-game-label"></h4>
+                <div class="indentIt">
+                    <div class="team">
+                        <label class="team-name"></label>
+                        <span class="team-score"></span>
+                    </div>
+                    <div class="team">
+                        <label class="team-name"></label>
+                        <span class="team-score"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Function to create a list of scores using jQuery
+    function displayScores(data) {
+        const $container = $('#cfb-scores-section');
+
+        data.events.forEach(event => {
+            const $eventItem = $('#cfb-template').clone().show().removeAttr('id');
+            const $gameLabel = $eventItem.find('.cfb-game-label');
+            $gameLabel.text(event.name);
+
+            const $teams = $eventItem.find('.team');
+            
+            event.competitions.forEach(competition => {
+                competition.competitors.forEach((competitor, index) => {
+                    const $scoreLabel = $teams.eq(index).find('.team-name');
+                    $scoreLabel.text(competitor.team.name + ':');
+                    const $score = $teams.eq(index).find('.team-score');
+                    $score.text(competitor.score);
+                });
+            });
+            $container.append($eventItem);
+        });
+    }
+
+    // Fetch cfb data and display scores using jQuery
+    $.ajax({
+        url: 'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard',
+        method: 'GET',
+        dataType: 'json',
+        success: displayScores,
+        error: function (error) {
+            console.error('Error fetching cfb data:', error);
+        }
+    });
+    </script>
+</body>
+</html>

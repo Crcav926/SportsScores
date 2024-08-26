@@ -13,6 +13,7 @@
         <ul>
             <li><a href="index.html">Home Page</a></li>
             <li><a href="mlb.html">MLB Scores</a></li>
+            <li><a href="cfb.html">CFB Scores</a></li>
             <li><a href="nfl.html">NFL Scores</a></li>
             <li><a class="active" href="nba.html">NBA Scores</a></li>
         </ul>
@@ -41,6 +42,7 @@
         const $container = $('#NBA-scores-section');
 
         data.events.forEach(event => {
+            console.log(event);
             const $eventItem = $('#NBA-template').clone().show().removeAttr('id');
             const $gameLabel = $eventItem.find('.NBA-game-label');
             $gameLabel.text(event.name);
