@@ -62,7 +62,7 @@
 
     // Fetch cfb data and display scores using jQuery
     $.ajax({
-        url: 'https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard',
+        url: 'https://fcast.espncdn.com/FastcastService/pubsub/profiles/12000/topic/scoreboard-football-college-football-80/message/3484008/checkpoint',
         method: 'GET',
         dataType: 'json',
         success: displayScores,
